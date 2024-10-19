@@ -1,5 +1,14 @@
 package main
 
+import (
+	"time"
+
+	"github.com/mgmaster24/m2-pokedex/pokeapi"
+)
+
 func main() {
-	startREPL()
+	pokeClient := pokeapi.NewClient(5*time.Second, time.Minute*5)
+	startREPL(&config{
+		client: pokeClient,
+	})
 }

@@ -7,19 +7,18 @@ import (
 	"strings"
 )
 
-func startREPL() {
+func startREPL(cfg *config) {
 	fmt.Println("------ M2 Pokedex -------")
 	fmt.Println("-------------------------")
 	cmdScanner := bufio.NewScanner(os.Stdin)
 	cmds := getCommands()
-	cfg := config{}
 	for {
 		fmt.Print("Pokedex ->")
 		cmdScanner.Scan()
 
 		words := cleanInput(cmdScanner.Text())
 		if cmd, found := cmds[words[0]]; found {
-			err := cmd.callback(&cfg)
+			err := cmd.callback(cfg)
 			if err != nil {
 				fmt.Printf("error running cmd, err: %v\n", err)
 			}
