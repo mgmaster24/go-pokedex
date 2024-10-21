@@ -17,8 +17,19 @@ func startREPL(cfg *config) {
 		cmdScanner.Scan()
 
 		words := cleanInput(cmdScanner.Text())
-		if cmd, found := cmds[words[0]]; found {
-			err := cmd.callback(cfg)
+		if len(words) == 0 {
+			continue
+		}
+
+		commandName := words[0]
+		args := []string{}
+		if len(words) > 1 {
+			args = words[1:]
+		}
+
+		cmd, found := cmds[commandName]
+		if found {
+			err := cmd.callback(cfg, args...)
 			if err != nil {
 				fmt.Printf("error running cmd, err: %v\n", err)
 			}

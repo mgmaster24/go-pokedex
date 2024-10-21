@@ -7,9 +7,9 @@ import (
 	"net/http"
 )
 
-func (client *Client) GetLocations(url string) (*PokeResponse, error) {
+func (client *Client) GetLocations(url string) (*LocationsResponse, error) {
 	if val, ok := client.cache.Get(url); ok {
-		pokeResponse := PokeResponse{}
+		pokeResponse := LocationsResponse{}
 		err := json.Unmarshal(val, &pokeResponse)
 		if err != nil {
 			return nil, err
@@ -34,7 +34,7 @@ func (client *Client) GetLocations(url string) (*PokeResponse, error) {
 		return nil, fmt.Errorf("error reading the response body, Error: %v", err)
 	}
 
-	pokeResponse := PokeResponse{}
+	pokeResponse := LocationsResponse{}
 	err = json.Unmarshal(data, &pokeResponse)
 	if err != nil {
 		return nil, fmt.Errorf("error unmarshalling the response data, Error: %v", err)

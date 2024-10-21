@@ -1,6 +1,6 @@
 package main
 
-func map_cmd(cfg *config) error {
+func map_cmd(cfg *config, args ...string) error {
 	url := "https://pokeapi.co/api/v2/location-area"
 	if cfg.Next != nil {
 		url = *cfg.Next
