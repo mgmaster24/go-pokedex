@@ -12,7 +12,6 @@ func exploreLocation(config *config, args ...string) error {
 
 	name := args[0]
 	url := "https://pokeapi.co/api/v2/location-area/" + name
-	fmt.Println(url)
 	location, err := config.client.ExploreLocation(url)
 	if err != nil {
 		return err
