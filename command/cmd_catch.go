@@ -1,19 +1,21 @@
-package main
+package command
 
 import (
 	"errors"
 	"fmt"
 	"math/rand"
+
+	"github.com/mgmaster24/m2-pokedex/config"
 )
 
-func catch(config *config, args ...string) error {
+func catch(config *config.Config, args ...string) error {
 	if len(args) != 1 {
 		return errors.New("you must provide a location name")
 	}
 
 	name := args[0]
 	url := "https://pokeapi.co/api/v2/pokemon/" + name
-	pokemon, err := config.client.Catch(url)
+	pokemon, err := config.Client.Catch(url)
 	if err != nil {
 		return err
 	}
@@ -27,6 +29,6 @@ func catch(config *config, args ...string) error {
 	}
 
 	fmt.Printf("%s was caught!\n", pokemonName)
-	config.caughtPokemon[pokemonName] = pokemon
+	config.CaughtPokemon[pokemonName] = pokemon
 	return nil
 }

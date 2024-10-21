@@ -1,18 +1,20 @@
-package main
+package command
 
 import (
 	"errors"
 	"fmt"
+
+	"github.com/mgmaster24/m2-pokedex/config"
 )
 
-func exploreLocation(config *config, args ...string) error {
+func exploreLocation(config *config.Config, args ...string) error {
 	if len(args) != 1 {
 		return errors.New("you must provide a location name")
 	}
 
 	name := args[0]
 	url := "https://pokeapi.co/api/v2/location-area/" + name
-	location, err := config.client.ExploreLocation(url)
+	location, err := config.Client.ExploreLocation(url)
 	if err != nil {
 		return err
 	}

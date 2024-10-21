@@ -5,13 +5,16 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/mgmaster24/m2-pokedex/command"
+	"github.com/mgmaster24/m2-pokedex/config"
 )
 
-func startREPL(cfg *config) {
+func startREPL(cfg *config.Config) {
 	fmt.Println("------ M2 Pokedex -------")
 	fmt.Println("-------------------------")
 	cmdScanner := bufio.NewScanner(os.Stdin)
-	cmds := getCommands()
+	cmds := command.GetCommands()
 	for {
 		fmt.Print("Pokedex ->")
 		cmdScanner.Scan()
@@ -29,7 +32,7 @@ func startREPL(cfg *config) {
 
 		cmd, found := cmds[commandName]
 		if found {
-			err := cmd.callback(cfg, args...)
+			err := cmd.Callback(cfg, args...)
 			if err != nil {
 				fmt.Printf("error running cmd, err: %v\n", err)
 			}

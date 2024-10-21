@@ -1,59 +1,63 @@
-package main
+package command
 
-import "errors"
+import (
+	"errors"
 
-type command struct {
+	"github.com/mgmaster24/m2-pokedex/config"
+)
+
+type Command struct {
 	name        string
 	description string
-	callback    func(cfg *config, args ...string) error
+	Callback    func(cfg *config.Config, args ...string) error
 }
 
-func getCommands() map[string]command {
-	return map[string]command{
+func GetCommands() map[string]Command {
+	return map[string]Command{
 		"help": {
 			name:        "help",
 			description: "Displays a help message",
-			callback:    help,
+			Callback:    help,
 		},
 		"exit": {
 			name:        "exit",
 			description: "Exits the Pokedex",
-			callback:    exit,
+			Callback:    exit,
 		},
 		"map": {
 			name:        "map",
 			description: "returns the next 20 name of locations in the Pokemon world",
-			callback:    map_cmd,
+			Callback:    map_cmd,
 		},
 		"mapb": {
 			name:        "mapb",
 			description: "returns the previous 20 names of locations in the Pokemon world",
-			callback:    mapb_cmd,
+			Callback:    mapb_cmd,
 		},
 		"explore": {
 			name:        "explore",
 			description: "returns a list of pokemon located in the provided location",
-			callback:    exploreLocation,
+			Callback:    exploreLocation,
 		},
 		"catch": {
 			name:        "catch",
 			description: "attempt to catch a pokemon by name",
-			callback:    catch,
+			Callback:    catch,
 		},
 		"inspect": {
 			name:        "inspect",
 			description: "display details about caught pokemon",
-			callback:    inspect,
+			Callback:    inspect,
 		},
 		"pokedex": {
 			name:        "pokedex",
 			description: "list the caught pokemon",
-			callback:    pokedex,
+			Callback:    pokedex,
 		},
 	}
 }
 
-func getArgs(numArgs int, args ...string) ([]string, error) {
+func GetArgs(numArgs int, args ...string) ([]string, error) {
 	if len(args) != numArgs {
 		return nil, errors.New("Not enough arguments for this command")
 	}

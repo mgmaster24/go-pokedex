@@ -1,18 +1,20 @@
-package main
+package command
 
 import (
 	"errors"
 	"fmt"
+
+	"github.com/mgmaster24/m2-pokedex/config"
 )
 
-func inspect(config *config, args ...string) error {
+func inspect(config *config.Config, args ...string) error {
 	if len(args) != 1 {
 		return errors.New("you must provide a pokemon name")
 	}
 
 	name := args[0]
 
-	pokemon, ok := config.caughtPokemon[name]
+	pokemon, ok := config.CaughtPokemon[name]
 	if !ok {
 		return errors.New("you have not caught that pokemon")
 	}
